@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "660500180027",
+    "project_id": "myfuncity-app",
+    "storage_bucket": "myfuncity-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660500180027:android:3b433a2bc2e18e342ac01e",
+        "android_client_info": {
+          "package_name": "com.myfuncity.myfuncitynew"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660500180027-k6hvtsj03aipl40ae19hmfkf58arq5ph.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0k9pXjIvzipnDHH8xhiDG66CuhkYGAV8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660500180027-k6hvtsj03aipl40ae19hmfkf58arq5ph.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "660500180027-arsdv9q1but2q53dn1c0ph4354tiq3lr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.myfuncity.myFunCity"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
