@@ -19,17 +19,19 @@ class _SurveyPageOneState extends State<SurveyPageOne> {
     fontFamily: "Roboto",
   );
 
-  int question_index = 1;
-  Map<String, dynamic> surveyQuestions = {};
+  int survey_index = 1;
+  Map<String, dynamic> surveyData = {};
 
-  Future<void> getSurveyQuestionsFromFirestore() async {
-    FirebaseFirestore database = FirebaseFirestore.instance;
+  // Firebase Firestore
+  FirebaseFirestore database = FirebaseFirestore.instance;
+
+  Future<void> getSurveyDataFromFirestore() async {
     final collection = await database
         .collection('general_survey')
         .doc('hlBkeCpfqcyLTTjaPimn')
         .get();
     setState(() {
-      surveyQuestions = collection.data() ?? {};
+      surveyData = collection.data() ?? {};
     });
     print(collection.data());
   }
@@ -37,7 +39,7 @@ class _SurveyPageOneState extends State<SurveyPageOne> {
   @override
   void initState() {
     super.initState();
-    getSurveyQuestionsFromFirestore();
+    getSurveyDataFromFirestore();
   }
 
   @override
@@ -50,171 +52,211 @@ class _SurveyPageOneState extends State<SurveyPageOne> {
             height: 60,
             color: Colors.orangeAccent,
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 40.0),
-            child: Container(
-              margin: const EdgeInsets.only(top: 60),
-              width: double.infinity,
+          SizedBox(
+            height: 60,
+          ),
+          Expanded(
+            child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "About 4 questions",
-                    style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w700,
-                        fontFamily: "Roboto"),
-                  ),
-                  const Text(
-                    'and you are ready to go!',
-                    style: TextStyle(
-                      fontSize: 25,
-                      fontFamily: "Roboto",
+                  Padding(
+                    padding: const EdgeInsets.only(left: 40.0, right: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "About 4 questions",
+                          style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: "Roboto"),
+                        ),
+                        const Text(
+                          'and you are ready to go!',
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontFamily: "Roboto",
+                          ),
+                        ),
+                        const SizedBox(height: 50),
+                        Text(
+                          surveyData['survey_question_${survey_index}'] ?? '',
+                          style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: "Roboto"),
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(height: 50),
-                  Text(
-                    surveyQuestions['survey_question_${question_index}'] ?? '',
-                    style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.w700,
-                        fontFamily: "Roboto"),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const SizedBox(height: 30),
+                        Row(
+                          children: [
+                            Radio(
+                              activeColor: Color.fromARGB(255, 237, 147, 2),
+                              value: 1,
+                              groupValue: radioGroupValue,
+                              onChanged: (_) {
+                                setState(() {
+                                  radioGroupValue = 1;
+                                });
+                              },
+                            ),
+                            Text(
+                              surveyData['survey_answers_${survey_index}'][0],
+                              style: radioBtnTextStyle,
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 20),
+                        Row(
+                          children: [
+                            Radio(
+                                activeColor: Color.fromARGB(255, 237, 147, 2),
+                                value: 2,
+                                groupValue: radioGroupValue,
+                                onChanged: (_) {
+                                  setState(() {
+                                    radioGroupValue = 2;
+                                  });
+                                }),
+                            Text(
+                              surveyData['survey_answers_${survey_index}'][1],
+                              style: radioBtnTextStyle,
+                            )
+                          ],
+                        ),
+                        SizedBox(height: 20),
+                        Row(
+                          children: [
+                            Radio(
+                                activeColor: Color.fromARGB(255, 237, 147, 2),
+                                value: 3,
+                                groupValue: radioGroupValue,
+                                onChanged: (_) {
+                                  setState(() {
+                                    radioGroupValue = 3;
+                                  });
+                                }),
+                            Text(
+                              surveyData['survey_answers_${survey_index}'][2],
+                              style: radioBtnTextStyle,
+                            )
+                          ],
+                        ),
+                        SizedBox(height: 20),
+                        Row(
+                          children: [
+                            Radio(
+                                activeColor: Color.fromARGB(255, 237, 147, 2),
+                                value: 4,
+                                groupValue: radioGroupValue,
+                                onChanged: (_) {
+                                  setState(() {
+                                    radioGroupValue = 4;
+                                  });
+                                }),
+                            Text(
+                              surveyData['survey_answers_${survey_index}'][3],
+                              style: radioBtnTextStyle,
+                            )
+                          ],
+                        ),
+                        SizedBox(height: 20),
+                        Row(
+                          children: [
+                            Radio(
+                                activeColor: Color.fromARGB(255, 237, 147, 2),
+                                value: 5,
+                                groupValue: radioGroupValue,
+                                onChanged: (_) {
+                                  setState(() {
+                                    radioGroupValue = 5;
+                                  });
+                                }),
+                            Text(
+                              surveyData['survey_answers_${survey_index}'][4],
+                              style: radioBtnTextStyle,
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
+                  SizedBox(height: 40),
                 ],
               ),
             ),
           ),
-
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(height: 30),
-                Row(
-                  children: [
-                    Radio(
-                      activeColor: Color.fromARGB(255, 237, 147, 2),
-                      value: 1,
-                      groupValue: radioGroupValue,
-                      onChanged: (_) {
-                        setState(() {
-                          radioGroupValue = 1;
-                        });
-                      },
-                    ),
-                    Text(
-                      'Urban',
-                      style: radioBtnTextStyle,
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20),
-                Row(
-                  children: [
-                    Radio(
-                        activeColor: Color.fromARGB(255, 237, 147, 2),
-                        value: 2,
-                        groupValue: radioGroupValue,
-                        onChanged: (_) {
-                          setState(() {
-                            radioGroupValue = 2;
-                          });
-                        }),
-                    Text(
-                      'Urban',
-                      style: radioBtnTextStyle,
-                    )
-                  ],
-                ),
-                SizedBox(height: 20),
-                Row(
-                  children: [
-                    Radio(
-                        activeColor: Color.fromARGB(255, 237, 147, 2),
-                        value: 3,
-                        groupValue: radioGroupValue,
-                        onChanged: (_) {
-                          setState(() {
-                            radioGroupValue = 3;
-                          });
-                        }),
-                    Text(
-                      'Urban',
-                      style: radioBtnTextStyle,
-                    )
-                  ],
-                ),
-                SizedBox(height: 20),
-                Row(
-                  children: [
-                    Radio(
-                        activeColor: Color.fromARGB(255, 237, 147, 2),
-                        value: 4,
-                        groupValue: radioGroupValue,
-                        onChanged: (_) {
-                          setState(() {
-                            radioGroupValue = 4;
-                          });
-                        }),
-                    Text(
-                      'Urban',
-                      style: radioBtnTextStyle,
-                    )
-                  ],
-                ),
-                SizedBox(height: 20),
-                Row(
-                  children: [
-                    Radio(
-                        activeColor: Color.fromARGB(255, 237, 147, 2),
-                        value: 5,
-                        groupValue: radioGroupValue,
-                        onChanged: (_) {
-                          setState(() {
-                            radioGroupValue = 5;
-                          });
-                        }),
-                    Text(
-                      'Urban',
-                      style: radioBtnTextStyle,
-                    )
-                  ],
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 40),
-
-          // Back and foward buttons
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              InkWell(
-                child: Image.asset(
-                  'images/arrow_left.png',
+              Visibility(
+                visible: survey_index != 4,
+                child: InkWell(
+                  onTap: () {
+                    if (survey_index > 1) {
+                      setState(() {
+                        survey_index = --survey_index;
+                      });
+                    }
+                  },
+                  child: Icon(
+                    Icons.arrow_back_ios_new_rounded,
+                    size: 50,
+                  ),
                 ),
               ),
               SizedBox(width: 20),
-              InkWell(
-                onTap: () {
-                  if (question_index < 4) {
-                    setState(() {
-                      question_index = ++question_index;
-                    });
-                  } else {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => MainMenuPage(),
-                      ),
-                    );
-                  }
-                },
-                child: Image.asset('images/arrow_rigth.png'),
+              Visibility(
+                visible: survey_index != 4,
+                child: InkWell(
+                  onTap: () {
+                    if (survey_index < 4) {
+                      setState(() {
+                        survey_index = ++survey_index;
+                      });
+                    } else {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => MainMenuPage(),
+                        ),
+                      );
+                    }
+                  },
+                  child: Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    size: 50,
+                  ),
+                ),
+              ),
+              Visibility(
+                visible: survey_index == 4,
+                child: OutlinedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    elevation: 0,
+                    side: BorderSide(
+                      width: 3,
+                      color: Colors.orange,
+                    ),
+                  ),
+                  child: Text('Submit'),
+                  onPressed: () {},
+                ),
               )
             ],
           ),
+          SizedBox(
+            height: 50,
+          )
         ],
       ),
     );
