@@ -249,7 +249,13 @@ class _SurveyPageOneState extends State<SurveyPageOne> {
                     ),
                   ),
                   child: Text('Submit'),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => MainMenuPage(),
+                      ),
+                    );
+                  },
                 ),
               )
             ],
