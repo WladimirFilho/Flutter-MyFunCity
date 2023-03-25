@@ -12,11 +12,11 @@ class TextFormFieldWidget extends StatelessWidget {
     this.trallingIcon,
   }) : super(key: key);
 
-  String? Function(String?) validator;
-  TextEditingController controler;
-  String hint;
-  bool isHidden;
-  Widget? trallingIcon;
+  final String? Function(String?) validator;
+  final TextEditingController controler;
+  final String hint;
+  final bool isHidden;
+  final Widget? trallingIcon;
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myfuncitynew/widgets/custom_app_bar_widget.dart';
+import 'package:myfuncitynew/widgets/main_page_bottom_navbar_widget.dart';
 
 class PlacesMainPage extends StatefulWidget {
   const PlacesMainPage({Key? key}) : super(key: key);
@@ -48,7 +49,8 @@ class _PlacesMainPageState extends State<PlacesMainPage> {
                       onChanged: (_) {},
                       items: cityList
                           .map<DropdownMenuItem<String>>(
-                              (String value) => DropdownMenuItem<String>(
+                              (String value) =>
+                              DropdownMenuItem<String>(
                                   value: value,
                                   child: Container(
                                     child: Text(value),
@@ -58,13 +60,16 @@ class _PlacesMainPageState extends State<PlacesMainPage> {
                                   )))
                           .toList(),
                     ),
+
                   ],
                 ),
               ),
             ),
+
           ],
         ),
       ),
+      bottomNavigationBar: MainPageBottomNavibar(),
     );
   }
 }

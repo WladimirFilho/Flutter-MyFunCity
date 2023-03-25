@@ -63,10 +63,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    void onSubmit() {
-      setState(() {});
-    }
-
     return Scaffold(
       body: Form(
         key: formKey,

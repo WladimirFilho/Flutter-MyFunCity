@@ -88,6 +88,5 @@ class _NightQuestionsPageState extends State<NightQuestionsPage> {
         ),
       ),
     );
-    ;
   }
 }

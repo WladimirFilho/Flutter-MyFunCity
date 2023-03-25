@@ -6,7 +6,7 @@ import 'package:myfuncitynew/pages/user_profile_pages/user_main_page.dart';
 class CustomAppBar extends StatelessWidget {
   CustomAppBar({super.key, this.isLeading = true});
 
-  bool isLeading;
+  final bool isLeading;
 
   @override
   Widget build(BuildContext context) {

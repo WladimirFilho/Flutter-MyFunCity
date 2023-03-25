@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:myfuncitynew/pages/survey_pages/survey_page_one_pages.dart';
 import 'package:myfuncitynew/transitions/no_transitions.dart';
-import 'package:myfuncitynew/widget_tree.dart';
 
 import '/constants/colors_constants.dart';
 import 'firebase_options.dart';
@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(
             seedColor: Colors.orange, background: backgroundColor),
       ),
-      home: WidgetTree(), //SurveyPageOne() //,
+      home: SurveyPageOne(), // WidgetTree(), // //,
     );
   }
 }
