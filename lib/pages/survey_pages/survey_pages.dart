@@ -334,11 +334,11 @@ class _SurveyPageOneState extends State<SurveyPageOne> {
                             setGeneralSurveyAnswersToFirestore();
                             print('Submit map:');
                             print(surveyAnswer);
-                            // Navigator.of(context).push(
-                            //   MaterialPageRoute(
-                            //     builder: (context) => MainMenuPage(),
-                            //   ),
-                            // );
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => MainMenuPage(),
+                              ),
+                            );
                           }
                         },
                       ),

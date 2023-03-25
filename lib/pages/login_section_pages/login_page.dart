@@ -18,15 +18,12 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final bool isChecked = false;
-  final TextEditingController controlerEmail =
-      TextEditingController(text: 'test@gmail.com');
-  final TextEditingController controlerPassword =
-      TextEditingController(text: '123456');
+  final TextEditingController controlerEmail = TextEditingController(text: 'wladimir.wf@gmail.com');
+  final TextEditingController controlerPassword = TextEditingController(text: '12345678');
 
   Future<void> userSignIn() async {
     try {
-      await Auth()
-          .signIn(email: controlerEmail.text, password: controlerPassword.text);
+      await Auth().signIn(email: controlerEmail.text, password: controlerPassword.text);
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -74,8 +71,7 @@ class _LoginPageState extends State<LoginPage> {
                       Row(
                         children: [
                           Checkbox(
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
+                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                             visualDensity: const VisualDensity(horizontal: -4),
                             value: isChecked,
                             onChanged: (newValue) {},
@@ -83,9 +79,6 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           SizedBox(width: 10),
                           InkWell(
-
-                              // TODO Fix Forgot Password
-
                               onTap: <String>() {
                                 if (controlerEmail == "") {
                                   return ScaffoldMessenger.of(context)
@@ -101,15 +94,20 @@ class _LoginPageState extends State<LoginPage> {
                               child: Text('Remember me', style: smallTextStyle))
                         ],
                       ),
-                      Text(
-                        'Forgot Passoword',
-                        style: smallTextStyle,
+                      TextButton(
+                        onPressed: () {
+                          Auth().firebaseAuth.sendPasswordResetEmail(
+                                email: controlerEmail.text,
+                              );
+                        },
+                        child: Text(
+                          'Forgot Password',
+                          style: smallTextStyle,
+                        ),
                       )
                     ],
                   ),
-                  const SizedBox(height: 40),
-
-                  /// Btn Login
+                  SizedBox(height: 40),
                   BtnFullOrange(
                     onTap: () {
                       userSignIn();
@@ -123,8 +121,6 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   SizedBox(height: 30),
 
-                  ///Dont have an account part
-                  ///
                   Text('Dont have an account?', style: smallTextStyle),
                   const SizedBox(height: 3),
                   TextButton(

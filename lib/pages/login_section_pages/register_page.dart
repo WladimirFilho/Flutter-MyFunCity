@@ -2,6 +2,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:myfuncitynew/pages/user_intro_pages/intro_page_one_page.dart';
 import 'package:myfuncitynew/widgets/text_form_field_widget.dart';
 
 import '../../constants/colors_constants.dart';
@@ -42,9 +43,12 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Future<void> register() async {
     try {
-      await Auth().createAccount(
-          email: controlerEmail.text, password: controlerPassword.text);
-      Navigator.pop(context);
+      await Auth().createAccount(email: controlerEmail.text, password: controlerPassword.text);
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => IntroPageOne(),
+        ),
+      );
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -123,9 +127,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       TextFormFieldWidget(
                         trallingIcon: IconButton(
                           icon: Icon(
-                            isPasswordHidden == false
-                                ? Icons.visibility
-                                : Icons.visibility_off,
+                            isPasswordHidden == false ? Icons.visibility : Icons.visibility_off,
                           ),
                           onPressed: () {
                             setState(() {
@@ -156,8 +158,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                           onPressed: () {
                             setState(() {
-                              isConfirmPasswordHidden =
-                                  !isConfirmPasswordHidden;
+                              isConfirmPasswordHidden = !isConfirmPasswordHidden;
                             });
                           },
                         ),
@@ -184,8 +185,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                       TextButton(
-                        style:
-                            TextButton.styleFrom(foregroundColor: orangeColor),
+                        style: TextButton.styleFrom(foregroundColor: orangeColor),
                         onPressed: () {
                           Navigator.pop(context);
                         },
