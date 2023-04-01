@@ -90,7 +90,6 @@ class _PlacesMainPageState extends State<PlacesMainPage> {
           ],
         ),
       ),
-      bottomNavigationBar: MainPageBottomNavibar(),
     );
   }
 }
