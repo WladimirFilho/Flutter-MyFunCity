@@ -19,8 +19,6 @@ class CustomAppBar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                //
-                //Icon Left to go back
                 isLeading
                     ? IconButton(
                         onPressed: () {

@@ -17,8 +17,7 @@ class MainMenuPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Future<void> getDataFromFirestore() async {
       FirebaseFirestore database = FirebaseFirestore.instance;
-      info =
-          await database.collection('myFunCity_questions').doc('themes').get();
+      info = await database.collection('myFunCity_questions').doc('themes').get();
     }
 
     return Scaffold(
@@ -30,11 +29,10 @@ class MainMenuPage extends StatelessWidget {
           } else {
             return Column(
               children: [
-                CustomAppBar(),
-
-                SizedBox(height: 10),
-
-                /// Main List Menu
+                CustomAppBar(isLeading: false),
+                SizedBox(
+                  height: 10,
+                ),
                 Expanded(
                   flex: 1,
                   child: Padding(
@@ -43,51 +41,57 @@ class MainMenuPage extends StatelessWidget {
                       padding: EdgeInsets.all(0),
                       children: [
                         GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      QuestionsMorningTimePage(
-                                          docFromFirebase: info['theme_1']),
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => QuestionsMorningTimePage(
+                                  docFromFirebase: info['theme_1'],
                                 ),
-                              );
-                            },
-                            child: Image.asset(
-                                'images/menu_cover_morning_time.png')),
+                              ),
+                            );
+                          },
+                          child: Image.asset('images/menu_cover_morning_time.png'),
+                        ),
                         SizedBox(
                           height: 18,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        QuestionsKidsFriendlyPage(
-                                      docFromFirebase: info['theme_4'],
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => QuestionsKidsFriendlyPage(
+                                        docFromFirebase: info['theme_4'],
+                                      ),
                                     ),
-                                  ),
-                                );
-                              },
-                              child: Image.asset(
-                                'images/menu_cover_kid_friendly.png',
+                                  );
+                                },
+                                child: Image.asset(
+                                  'images/menu_cover_kid_friendly.png',
+                                ),
                               ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => NightQuestionsPage(
-                                        docFromFirebase: info['theme_2']),
-                                  ),
-                                );
-                              },
-                              child: Image.asset(
-                                  'images/menu_cover_night_life.png'),
-                            ),
-                          ],
+                              SizedBox(
+                                width: 20,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          NightQuestionsPage(docFromFirebase: info['theme_2']),
+                                    ),
+                                  );
+                                },
+                                child: Image.asset(
+                                  'images/menu_cover_night_life.png',
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         SizedBox(
                           height: 18,
@@ -96,15 +100,13 @@ class MainMenuPage extends StatelessWidget {
                             onTap: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      EnviromentalPage(
+                                  builder: (BuildContext context) => EnviromentalPage(
                                     docFromFirebase: info['theme_3'],
                                   ),
                                 ),
                               );
                             },
-                            child: Image.asset(
-                                'images/menu_cover_enveirament.png')),
+                            child: Image.asset('images/menu_cover_enveirament.png')),
                       ],
                     ),
                   ),
@@ -118,5 +120,3 @@ class MainMenuPage extends StatelessWidget {
     );
   }
 }
-
-//TODO list view stops bouncing and snaps on top

@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:myfuncitynew/pages/login_section_pages/register_page.dart';
-import 'package:myfuncitynew/pages/user_intro_pages/intro_page_one_page.dart';
+import 'package:myfuncitynew/pages/main_menu_pages/main_menu_page.dart';
 
 import '/constants/colors_constants.dart';
 import '/constants/font_styles_constant.dart';
@@ -17,13 +17,19 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final bool isChecked = false;
+  bool isForgotBtnClicked = false;
+  bool isLoginBtnClicked = false;
   final TextEditingController controlerEmail = TextEditingController(text: 'wladimir.wf@gmail.com');
-  final TextEditingController controlerPassword = TextEditingController(text: '12345678');
+  final TextEditingController controlerPassword = TextEditingController(text: 'Wiazowski1234');
 
   Future<void> userSignIn() async {
     try {
       await Auth().signIn(email: controlerEmail.text, password: controlerPassword.text);
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => MainMenuPage(),
+        ),
+      );
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -63,65 +69,54 @@ class _LoginPageState extends State<LoginPage> {
                     isHidden: true,
                   ),
                   SizedBox(height: 10),
-
-                  //Remember me and ForgotPassword
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Row(
-                        children: [
-                          Checkbox(
-                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                            visualDensity: const VisualDensity(horizontal: -4),
-                            value: isChecked,
-                            onChanged: (newValue) {},
-                            activeColor: orangeColor,
-                          ),
-                          SizedBox(width: 10),
-                          InkWell(
-                              onTap: <String>() {
-                                if (controlerEmail == "") {
-                                  return ScaffoldMessenger.of(context)
-                                      .showSnackBar(SnackBar(
-                                        content: Text('Testing'),
-                                      ))
-                                      .toString();
-                                } else {
-                                  Auth().resetEmail(controlerEmail);
-                                }
-                                ;
+                      isForgotBtnClicked
+                          ? CircularProgressIndicator()
+                          : TextButton(
+                              onPressed: () async {
+                                setState(() {
+                                  isForgotBtnClicked = true;
+                                });
+                                await Auth().firebaseAuth.sendPasswordResetEmail(
+                                      email: controlerEmail.text,
+                                    );
+                                setState(() {
+                                  isForgotBtnClicked = false;
+                                });
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    backgroundColor: Color.fromARGB(255, 119, 119, 119),
+                                    behavior: SnackBarBehavior.floating,
+                                    content: Text('Reset email has sent.'),
+                                  ),
+                                );
                               },
-                              child: Text('Remember me', style: smallTextStyle))
-                        ],
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Auth().firebaseAuth.sendPasswordResetEmail(
-                                email: controlerEmail.text,
-                              );
-                        },
-                        child: Text(
-                          'Forgot Password',
-                          style: smallTextStyle,
-                        ),
-                      )
+                              child: Text(
+                                'Forgot Password',
+                                style: smallTextStyle,
+                              ),
+                            )
                     ],
                   ),
                   SizedBox(height: 40),
-                  BtnFullOrange(
-                    onTap: () {
-                      userSignIn();
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => IntroPageOne(),
+                  isLoginBtnClicked
+                      ? CircularProgressIndicator()
+                      : BtnFullOrange(
+                          onTap: () async {
+                            setState(() {
+                              isLoginBtnClicked = true;
+                            });
+                            await userSignIn();
+                            setState(() {
+                              isLoginBtnClicked = false;
+                            });
+                          },
+                          textFullOrangeBtn: 'Login',
                         ),
-                      );
-                    },
-                    textFullOrangeBtn: 'Login',
-                  ),
                   SizedBox(height: 30),
-
-                  Text('Dont have an account?', style: smallTextStyle),
+                  Text('Don`t have an account?', style: smallTextStyle),
                   const SizedBox(height: 3),
                   TextButton(
                     onPressed: () {

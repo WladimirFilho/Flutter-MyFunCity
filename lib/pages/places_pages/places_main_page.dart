@@ -45,27 +45,48 @@ class _PlacesMainPageState extends State<PlacesMainPage> {
                         letterSpacing: -0.1,
                       ),
                     ),
-                    DropdownButton(
-                      onChanged: (_) {},
-                      items: cityList
-                          .map<DropdownMenuItem<String>>(
-                              (String value) =>
-                              DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Container(
-                                    child: Text(value),
-                                    width: 150,
-                                    height: 1000,
-                                    color: Colors.deepOrangeAccent,
-                                  )))
-                          .toList(),
+                    SizedBox(
+                      height: 40,
                     ),
-
+                    Container(
+                      height: 60,
+                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      decoration: BoxDecoration(
+                        color: Colors.deepOrange,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton(
+                          iconEnabledColor: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                          iconSize: 40,
+                          hint: Text(
+                            'Choose your city',
+                            style: TextStyle(fontSize: 12, color: Colors.white),
+                          ),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                          isExpanded: true,
+                          elevation: 0,
+                          dropdownColor: Colors.deepOrange,
+                          onChanged: (_) {},
+                          items: cityList
+                              .map<DropdownMenuItem<String>>(
+                                (String value) => DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                ),
+                              )
+                              .toList(),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
-
           ],
         ),
       ),

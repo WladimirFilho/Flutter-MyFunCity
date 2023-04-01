@@ -13,10 +13,8 @@ class WidgetTree extends StatelessWidget {
       stream: Auth().authenticationStateChanges,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          print(snapshot);
           return MainMenuPage();
         } else {
-          print('logout done');
           return LoginPage();
         }
       },

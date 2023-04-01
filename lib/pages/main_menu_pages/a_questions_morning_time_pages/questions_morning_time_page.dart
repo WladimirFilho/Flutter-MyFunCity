@@ -12,8 +12,7 @@ class QuestionsMorningTimePage extends StatefulWidget {
   final Map<String, dynamic> docFromFirebase;
 
   @override
-  State<QuestionsMorningTimePage> createState() =>
-      _QuestionsMorningTimePageState();
+  State<QuestionsMorningTimePage> createState() => _QuestionsMorningTimePageState();
 }
 
 class _QuestionsMorningTimePageState extends State<QuestionsMorningTimePage> {
@@ -36,99 +35,99 @@ class _QuestionsMorningTimePageState extends State<QuestionsMorningTimePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
-          children: [
-            CustomAppBar(),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              CustomAppBar(),
 
-            SizedBox(
-              height: 5,
-            ),
-
-            /// Hero Picture
-            Container(
-              child: Image.asset(
-                'images/menu_hero_morning_time_friendly.png',
-                fit: BoxFit.fitHeight,
+              SizedBox(
+                height: 5,
               ),
-            ),
-            SizedBox(
-              height: 50,
-            ),
 
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
-              child: FittedBox(
-                child: Text(
-                  widget.docFromFirebase['questions'][questionThemeIndex],
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontFamily: "Roboto",
-                      fontSize: 24,
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: -1),
+              /// Hero Picture
+              Container(
+                child: Image.asset(
+                  'images/menu_hero_morning_time_friendly.png',
+                  fit: BoxFit.fitHeight,
                 ),
               ),
-            ),
-            SizedBox(
-              height: 60,
-            ),
-
-            if (questionThemeIndex == 0)
-              SliderVoteWidget(
-                key: ValueKey(1),
-                onPress: (int votingIndex) {
-                  answers[questionThemeIndex] = votingIndex;
-                },
-              ),
-            if (questionThemeIndex == 1)
-              SliderVoteWidget(
-                key: ValueKey(2),
-                onPress: (int votingIndex) {
-                  answers[questionThemeIndex] = votingIndex;
-                },
-              ),
-            if (questionThemeIndex == 2)
-              SliderVoteWidget(
-                key: ValueKey(3),
-                onPress: (int votingIndex) {
-                  answers[questionThemeIndex] = votingIndex;
-                },
+              SizedBox(
+                height: 50,
               ),
 
-            SizedBox(
-              height: 30,
-            ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                child: FittedBox(
+                  child: Text(
+                    widget.docFromFirebase['questions'][questionThemeIndex],
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontFamily: "Roboto",
+                        fontSize: 24,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: -1),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 60,
+              ),
 
-            ElevatedButton(
-              onPressed: () {
-                setState(
-                  () {
-                    if (questionThemeIndex <
-                        widget.docFromFirebase['questions'].length - 1) {
-                      questionThemeIndex++;
-                    } else {
-                      setDataToFirestore();
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (context) => ThankYouPage(),
-                        ),
-                      );
-                    }
+              if (questionThemeIndex == 0)
+                SliderVoteWidget(
+                  key: ValueKey(1),
+                  onPress: (int votingIndex) {
+                    answers[questionThemeIndex] = votingIndex;
                   },
-                );
-              },
-              child: Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
-              style: ElevatedButton.styleFrom(
-                elevation: 0.0,
-                shadowColor: Colors.transparent,
-                shape: CircleBorder(),
-                padding: EdgeInsets.all(8),
-                backgroundColor: Color.fromARGB(255, 247, 157, 22),
-                foregroundColor:
-                    Color.fromARGB(255, 255, 188, 73), // <-- Splash color
+                ),
+              if (questionThemeIndex == 1)
+                SliderVoteWidget(
+                  key: ValueKey(2),
+                  onPress: (int votingIndex) {
+                    answers[questionThemeIndex] = votingIndex;
+                  },
+                ),
+              if (questionThemeIndex == 2)
+                SliderVoteWidget(
+                  key: ValueKey(3),
+                  onPress: (int votingIndex) {
+                    answers[questionThemeIndex] = votingIndex;
+                  },
+                ),
+
+              SizedBox(
+                height: 30,
               ),
-            ),
-          ],
+
+              ElevatedButton(
+                onPressed: () {
+                  setState(
+                    () {
+                      if (questionThemeIndex < widget.docFromFirebase['questions'].length - 1) {
+                        questionThemeIndex++;
+                      } else {
+                        setDataToFirestore();
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => ThankYouPage(),
+                          ),
+                        );
+                      }
+                    },
+                  );
+                },
+                child: Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
+                style: ElevatedButton.styleFrom(
+                  elevation: 0.0,
+                  shadowColor: Colors.transparent,
+                  shape: CircleBorder(),
+                  padding: EdgeInsets.all(8),
+                  backgroundColor: Color.fromARGB(255, 247, 157, 22),
+                  foregroundColor: Color.fromARGB(255, 255, 188, 73), // <-- Splash color
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
