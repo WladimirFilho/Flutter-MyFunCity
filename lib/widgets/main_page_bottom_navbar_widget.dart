@@ -6,15 +6,15 @@ import 'package:myfuncitynew/pages/places_pages/places_main_page.dart';
 
 import '/constants/colors_constants.dart';
 
-class MainPageBottomNavibar extends StatefulWidget {
-  const MainPageBottomNavibar({super.key});
+class MainPageBottomNavibar extends StatelessWidget {
+  final Function(int) onTapClick;
+  final int initialIndex;
 
-  @override
-  State<MainPageBottomNavibar> createState() => _MainPageBottomNavibarState();
-}
-
-class _MainPageBottomNavibarState extends State<MainPageBottomNavibar> {
-  int _selectedIndex = 0;
+  const MainPageBottomNavibar({
+    super.key,
+    required this.onTapClick,
+    this.initialIndex = 0,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,37 +25,16 @@ class _MainPageBottomNavibarState extends State<MainPageBottomNavibar> {
         gap: 8,
         tabs: [
           GButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => MainMenuPage(),
-                ),
-              );
-            },
             iconActiveColor: orangeColor,
             icon: Icons.home,
             text: 'Home',
           ),
           GButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => PlacesMainPage(),
-                ),
-              );
-            },
             iconActiveColor: orangeColor,
             icon: Icons.map,
             text: 'Places',
           ),
           GButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => FindMainPage(),
-                ),
-              );
-            },
             iconActiveColor: orangeColor,
             icon: Icons.notifications,
             text: 'New',
@@ -66,12 +45,8 @@ class _MainPageBottomNavibarState extends State<MainPageBottomNavibar> {
             iconActiveColor: orangeColor,
           ),
         ],
-        selectedIndex: _selectedIndex,
-        onTabChange: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
+        selectedIndex: initialIndex,
+        onTabChange: onTapClick,
       ),
     );
   }

@@ -48,7 +48,8 @@ class FindMainPage extends StatelessWidget {
                     child: Column(
                       children: [
                         FindOutTextBlockWidget(
-                          title: 'Sydney is getting free activities for kids !!!',
+                          title:
+                              'Sydney is getting free activities for kids !!!',
                           content:
                               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
                         ),
@@ -61,7 +62,6 @@ class FindMainPage extends StatelessWidget {
           )
         ],
       ),
-      bottomNavigationBar: MainPageBottomNavibar(),
     );
   }
 }
