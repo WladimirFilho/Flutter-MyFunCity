@@ -96,6 +96,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           if (value.isEmpty) {
                             return 'Invalid name';
                           }
+                          return null;
                         },
                         controler: controlerFirtsName,
                         hint: 'First name',
@@ -108,6 +109,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           if (value.isEmpty) {
                             return 'Invalid Last name';
                           }
+                          return null;
                         },
                         controler: controlerLastName,
                         hint: 'Last name',
@@ -120,6 +122,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           if (!value.isEmail) {
                             return 'Invalid email ';
                           }
+                          return null;
                         },
                         controler: controlerEmail,
                         hint: 'Email',
@@ -144,6 +147,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           if (value.length < 8) {
                             return 'Minimum 8 characters';
                           }
+                          return null;
                         },
                         controler: controlerPassword,
                         hint: 'Password',
@@ -170,6 +174,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           if (value == controlerPassword.value) {
                             return 'Password does not match';
                           }
+                          return null;
                         },
                         controler: controlerConfirmPassword,
                         hint: 'Confirm password',

@@ -55,16 +55,12 @@ class PostWidget extends StatelessWidget {
           height: 15,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            //shrinkWrap: true,
             itemCount: 5,
             itemBuilder: (context, index) {
-              return Container(
-                height: 100,
-                child: Icon(
-                  Icons.star,
-                  color: Colors.orange,
-                  size: 30,
-                ),
+              return Icon(
+                Icons.star,
+                color: Colors.orange,
+                size: 30,
               );
             },
           ),

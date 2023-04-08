@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:myfuncitynew/pages/find_pages/find_main_page.dart';
-import 'package:myfuncitynew/pages/main_menu_pages/main_menu_page.dart';
-import 'package:myfuncitynew/pages/places_pages/places_main_page.dart';
 
 import '/constants/colors_constants.dart';
 

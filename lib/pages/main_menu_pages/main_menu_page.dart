@@ -65,6 +65,7 @@ class HomeWidget extends StatelessWidget {
           return Center(child: CircularProgressIndicator());
         } else {
           return Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               CustomAppBar(isLeading: false),
               SizedBox(

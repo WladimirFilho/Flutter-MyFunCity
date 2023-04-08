@@ -10,7 +10,9 @@ class ReviewPages extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CustomAppBar(),
+        CustomAppBar(
+          isLeading: false,
+        ),
         Expanded(
           child: SingleChildScrollView(
             child: Column(

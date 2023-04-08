@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myfuncitynew/pages/find_pages/find_out_text_block_widget.dart';
 import 'package:myfuncitynew/widgets/custom_app_bar_widget.dart';
-import 'package:myfuncitynew/widgets/main_page_bottom_navbar_widget.dart';
 
 class FindMainPage extends StatelessWidget {
   const FindMainPage({super.key});
@@ -11,7 +10,9 @@ class FindMainPage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          CustomAppBar(),
+          CustomAppBar(
+            isLeading: false,
+          ),
           SizedBox(
             height: 20,
           ),
@@ -48,8 +49,7 @@ class FindMainPage extends StatelessWidget {
                     child: Column(
                       children: [
                         FindOutTextBlockWidget(
-                          title:
-                              'Sydney is getting free activities for kids !!!',
+                          title: 'Sydney is getting free activities for kids !!!',
                           content:
                               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
                         ),
