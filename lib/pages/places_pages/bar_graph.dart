@@ -93,7 +93,7 @@ class MyBarGraph extends StatelessWidget {
                       color: Colors.orange[100],
                     ),
                     borderRadius: BorderRadius.circular(5),
-                    width: 25,
+                    width: 35,
                     toY: data.y,
                     color: Colors.orangeAccent,
                   ),
