@@ -4,6 +4,7 @@ import 'package:myfuncitynew/pages/find_pages/find_main_page.dart';
 import 'package:myfuncitynew/pages/main_menu_pages/a_questions_morning_time_pages/questions_morning_time_page.dart';
 import 'package:myfuncitynew/pages/main_menu_pages/c_night_pages/night_questions_page.dart';
 import 'package:myfuncitynew/pages/places_pages/places_main_page.dart';
+import 'package:myfuncitynew/pages/reviews/reviews_page.dart';
 
 import '/widgets/custom_app_bar_widget.dart';
 import '../../widgets/main_page_bottom_navbar_widget.dart';
@@ -26,7 +27,7 @@ class _MainMenuPageState extends State<MainMenuPage> {
     HomeWidget(),
     PlacesMainPage(),
     FindMainPage(),
-    FindMainPage(),
+    ReviewPages(),
   ];
 
   @override
@@ -86,8 +87,7 @@ class HomeWidget extends StatelessWidget {
                             ),
                           );
                         },
-                        child:
-                            Image.asset('images/menu_cover_morning_time.png'),
+                        child: Image.asset('images/menu_cover_morning_time.png'),
                       ),
                       SizedBox(
                         height: 18,
@@ -101,8 +101,7 @@ class HomeWidget extends StatelessWidget {
                               onTap: () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) =>
-                                        QuestionsKidsFriendlyPage(
+                                    builder: (context) => QuestionsKidsFriendlyPage(
                                       docFromFirebase: info['theme_4'],
                                     ),
                                   ),
@@ -119,8 +118,8 @@ class HomeWidget extends StatelessWidget {
                               onTap: () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) => NightQuestionsPage(
-                                        docFromFirebase: info['theme_2']),
+                                    builder: (context) =>
+                                        NightQuestionsPage(docFromFirebase: info['theme_2']),
                                   ),
                                 );
                               },
@@ -138,15 +137,13 @@ class HomeWidget extends StatelessWidget {
                           onTap: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    EnviromentalPage(
+                                builder: (BuildContext context) => EnviromentalPage(
                                   docFromFirebase: info['theme_3'],
                                 ),
                               ),
                             );
                           },
-                          child:
-                              Image.asset('images/menu_cover_enveirament.png')),
+                          child: Image.asset('images/menu_cover_enveirament.png')),
                     ],
                   ),
                 ),

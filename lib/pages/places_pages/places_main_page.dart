@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myfuncitynew/widgets/custom_app_bar_widget.dart';
-import 'package:myfuncitynew/widgets/main_page_bottom_navbar_widget.dart';
+import 'package:myfuncitynew/widgets/title_section_header.dart';
 
 class PlacesMainPage extends StatefulWidget {
   const PlacesMainPage({Key? key}) : super(key: key);
@@ -25,14 +25,7 @@ class _PlacesMainPageState extends State<PlacesMainPage> {
                 padding: EdgeInsets.symmetric(horizontal: 35.0),
                 child: Column(
                   children: [
-                    Text(
-                      'Find the place that that would make you happier',
-                      style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 33,
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: -0.1),
-                    ),
+                    TitleSectionHeader(title: 'Find the place that that would make you happier'),
                     SizedBox(
                       height: 30,
                     ),
