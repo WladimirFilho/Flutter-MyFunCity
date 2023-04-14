@@ -1,12 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:myfuncitynew/firebase/auth/firebase_auth.dart';
 import 'package:myfuncitynew/pages/main_menu_pages/questions_widgets/vote_slider_widget.dart';
 
 import '../../../widgets/custom_app_bar_widget.dart';
 import '../thank_you_page.dart';
 
 class NightQuestionsPage extends StatefulWidget {
-  const NightQuestionsPage({Key? key, required this.docFromFirebase})
-      : super(key: key);
+  const NightQuestionsPage({
+    Key? key,
+    required this.docFromFirebase,
+  }) : super(key: key);
 
   final Map<String, dynamic> docFromFirebase;
 
@@ -16,6 +20,19 @@ class NightQuestionsPage extends StatefulWidget {
 
 class _NightQuestionsPageState extends State<NightQuestionsPage> {
   int questionThemeNightIndex = 0;
+  Map<String, int> answers = {};
+
+  Future<void> setDataToFirestore() async {
+    FirebaseFirestore database = FirebaseFirestore.instance;
+    await database
+        .collection('users')
+        .doc(Auth().currentUser!.email)
+        .collection('theme_3')
+        .doc('questions')
+        .set(
+      {'answers': answers},
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +46,7 @@ class _NightQuestionsPageState extends State<NightQuestionsPage> {
             ),
             Container(
               child: Image.asset(
-                'images/menu_hero_image_kid_friendly.png',
+                'images/menu_hero_image_night_life.png',
                 fit: BoxFit.fitHeight,
               ),
             ),
@@ -51,7 +68,42 @@ class _NightQuestionsPageState extends State<NightQuestionsPage> {
             SizedBox(
               height: 60,
             ),
-            SliderVoteWidget(onPress: (int votingIndex) {}),
+            if (questionThemeNightIndex == 0)
+              SliderVoteWidget(
+                key: ValueKey(1),
+                onPress: (int votingIndex) {
+                  answers.addAll(
+                    {
+                      widget.docFromFirebase['questions']
+                          [questionThemeNightIndex]: votingIndex,
+                    },
+                  );
+                },
+              ),
+            if (questionThemeNightIndex == 1)
+              SliderVoteWidget(
+                key: ValueKey(2),
+                onPress: (int votingIndex) {
+                  answers.addAll(
+                    {
+                      widget.docFromFirebase['questions']
+                          [questionThemeNightIndex]: votingIndex,
+                    },
+                  );
+                },
+              ),
+            if (questionThemeNightIndex == 2)
+              SliderVoteWidget(
+                key: ValueKey(3),
+                onPress: (int votingIndex) {
+                  answers.addAll(
+                    {
+                      widget.docFromFirebase['questions']
+                          [questionThemeNightIndex]: votingIndex,
+                    },
+                  );
+                },
+              ),
             SizedBox(
               height: 30,
             ),
@@ -63,6 +115,7 @@ class _NightQuestionsPageState extends State<NightQuestionsPage> {
                         widget.docFromFirebase['questions'].length - 1) {
                       questionThemeNightIndex++;
                     } else {
+                      setDataToFirestore();
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder: (context) => ThankYouPage(),

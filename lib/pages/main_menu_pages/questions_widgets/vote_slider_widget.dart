@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class SliderVoteWidget extends StatefulWidget {
-  const SliderVoteWidget({super.key, required this.onPress});
+  const SliderVoteWidget({
+    super.key,
+    required this.onPress,
+  });
 
   final Function(int) onPress;
 

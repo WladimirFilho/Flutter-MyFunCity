@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:myfuncitynew/pages/main_menu_pages/main_menu_page.dart';
 import 'package:myfuncitynew/pages/user_profile_pages/user_main_page.dart';
 
-class CustomAppBar extends StatelessWidget {
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   CustomAppBar({super.key, this.isLeading = true});
 
   final bool isLeading;
@@ -66,4 +66,7 @@ class CustomAppBar extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  Size get preferredSize => Size(double.infinity, 80);
 }

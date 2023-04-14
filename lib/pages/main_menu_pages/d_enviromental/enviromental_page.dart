@@ -1,12 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:myfuncitynew/firebase/auth/firebase_auth.dart';
 
 import '../../../widgets/custom_app_bar_widget.dart';
 import '../questions_widgets/vote_slider_widget.dart';
 import '../thank_you_page.dart';
 
 class EnviromentalPage extends StatefulWidget {
-  const EnviromentalPage({Key? key, required this.docFromFirebase})
-      : super(key: key);
+  const EnviromentalPage({
+    Key? key,
+    required this.docFromFirebase,
+  }) : super(key: key);
 
   final Map<String, dynamic> docFromFirebase;
 
@@ -16,6 +20,19 @@ class EnviromentalPage extends StatefulWidget {
 
 class _EnviromentalPageState extends State<EnviromentalPage> {
   int questionThemeEnviromentalIndex = 0;
+  Map<String, int> answer = {};
+
+  Future<void> setDataToFirestore() async {
+    FirebaseFirestore database = FirebaseFirestore.instance;
+    await database
+        .collection('users')
+        .doc(Auth().currentUser!.email)
+        .collection('theme_3')
+        .doc('questions')
+        .set(
+      {'answers': answer},
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +69,17 @@ class _EnviromentalPageState extends State<EnviromentalPage> {
             SizedBox(
               height: 60,
             ),
-            SliderVoteWidget(onPress: (int votingIndex) {}),
+            SliderVoteWidget(
+              key: ValueKey(questionThemeEnviromentalIndex),
+              onPress: (int votingIndex) {
+                answer.addAll(
+                  {
+                    widget.docFromFirebase['questions']
+                        [questionThemeEnviromentalIndex]: votingIndex
+                  },
+                );
+              },
+            ),
             SizedBox(
               height: 30,
             ),
@@ -64,6 +91,7 @@ class _EnviromentalPageState extends State<EnviromentalPage> {
                         widget.docFromFirebase['questions'].length - 1) {
                       questionThemeEnviromentalIndex++;
                     } else {
+                      setDataToFirestore();
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder: (context) => ThankYouPage(),

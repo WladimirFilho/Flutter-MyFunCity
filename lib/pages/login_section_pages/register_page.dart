@@ -43,7 +43,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Future<void> register() async {
     try {
-      await Auth().createAccount(email: controlerEmail.text, password: controlerPassword.text);
+      await Auth().createAccount(
+          email: controlerEmail.text, password: controlerPassword.text);
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) => IntroPageOne(),
@@ -130,7 +131,9 @@ class _RegisterPageState extends State<RegisterPage> {
                       TextFormFieldWidget(
                         trallingIcon: IconButton(
                           icon: Icon(
-                            isPasswordHidden == false ? Icons.visibility : Icons.visibility_off,
+                            isPasswordHidden == false
+                                ? Icons.visibility
+                                : Icons.visibility_off,
                           ),
                           onPressed: () {
                             setState(() {
@@ -162,7 +165,8 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                           onPressed: () {
                             setState(() {
-                              isConfirmPasswordHidden = !isConfirmPasswordHidden;
+                              isConfirmPasswordHidden =
+                                  !isConfirmPasswordHidden;
                             });
                           },
                         ),
@@ -190,7 +194,8 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                       TextButton(
-                        style: TextButton.styleFrom(foregroundColor: orangeColor),
+                        style:
+                            TextButton.styleFrom(foregroundColor: orangeColor),
                         onPressed: () {
                           Navigator.pop(context);
                         },
