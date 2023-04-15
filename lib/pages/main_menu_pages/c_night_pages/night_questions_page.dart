@@ -37,10 +37,10 @@ class _NightQuestionsPageState extends State<NightQuestionsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(),
       body: Center(
         child: Column(
           children: [
-            CustomAppBar(),
             SizedBox(
               height: 5,
             ),
@@ -74,8 +74,7 @@ class _NightQuestionsPageState extends State<NightQuestionsPage> {
                 onPress: (int votingIndex) {
                   answers.addAll(
                     {
-                      widget.docFromFirebase['questions']
-                          [questionThemeNightIndex]: votingIndex,
+                      widget.docFromFirebase['questions'][questionThemeNightIndex]: votingIndex,
                     },
                   );
                 },
@@ -86,8 +85,7 @@ class _NightQuestionsPageState extends State<NightQuestionsPage> {
                 onPress: (int votingIndex) {
                   answers.addAll(
                     {
-                      widget.docFromFirebase['questions']
-                          [questionThemeNightIndex]: votingIndex,
+                      widget.docFromFirebase['questions'][questionThemeNightIndex]: votingIndex,
                     },
                   );
                 },
@@ -98,8 +96,7 @@ class _NightQuestionsPageState extends State<NightQuestionsPage> {
                 onPress: (int votingIndex) {
                   answers.addAll(
                     {
-                      widget.docFromFirebase['questions']
-                          [questionThemeNightIndex]: votingIndex,
+                      widget.docFromFirebase['questions'][questionThemeNightIndex]: votingIndex,
                     },
                   );
                 },
@@ -111,8 +108,7 @@ class _NightQuestionsPageState extends State<NightQuestionsPage> {
               onPressed: () {
                 setState(
                   () {
-                    if (questionThemeNightIndex <
-                        widget.docFromFirebase['questions'].length - 1) {
+                    if (questionThemeNightIndex < widget.docFromFirebase['questions'].length - 1) {
                       questionThemeNightIndex++;
                     } else {
                       setDataToFirestore();
@@ -133,8 +129,7 @@ class _NightQuestionsPageState extends State<NightQuestionsPage> {
                 padding: EdgeInsets.all(8),
                 backgroundColor: Color.fromARGB(255, 247, 157, 22),
                 // <-- Button color
-                foregroundColor:
-                    Color.fromARGB(255, 255, 188, 73), // <-- Splash color
+                foregroundColor: Color.fromARGB(255, 255, 188, 73), // <-- Splash color
               ),
             ),
           ],

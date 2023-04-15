@@ -66,7 +66,7 @@ class HomeWidget extends StatelessWidget {
           return Center(child: CircularProgressIndicator());
         } else {
           return Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
                 height: 10,
@@ -88,49 +88,49 @@ class HomeWidget extends StatelessWidget {
                             ),
                           );
                         },
-                        child:
-                            Image.asset('images/menu_cover_morning_time.png'),
+                        child: Image.asset('images/menu_cover_morning_time.png'),
                       ),
                       SizedBox(
                         height: 18,
                       ),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        QuestionsKidsFriendlyPage(
-                                      docFromFirebase: info['theme_4'],
+                      Center(
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => QuestionsKidsFriendlyPage(
+                                        docFromFirebase: info['theme_4'],
+                                      ),
                                     ),
-                                  ),
-                                );
-                              },
-                              child: Image.asset(
-                                'images/menu_cover_kid_friendly.png',
+                                  );
+                                },
+                                child: Image.asset(
+                                  'images/menu_cover_kid_friendly.png',
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => NightQuestionsPage(
-                                        docFromFirebase: info['theme_2']),
-                                  ),
-                                );
-                              },
-                              child: Image.asset(
-                                'images/menu_cover_night_life.png',
+                              SizedBox(
+                                width: 20,
                               ),
-                            ),
-                          ],
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          NightQuestionsPage(docFromFirebase: info['theme_2']),
+                                    ),
+                                  );
+                                },
+                                child: Image.asset(
+                                  'images/menu_cover_night_life.png',
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -140,15 +140,13 @@ class HomeWidget extends StatelessWidget {
                           onTap: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    EnviromentalPage(
+                                builder: (BuildContext context) => EnviromentalPage(
                                   docFromFirebase: info['theme_3'],
                                 ),
                               ),
                             );
                           },
-                          child:
-                              Image.asset('images/menu_cover_enveirament.png')),
+                          child: Image.asset('images/menu_cover_enveirament.png')),
                     ],
                   ),
                 ),

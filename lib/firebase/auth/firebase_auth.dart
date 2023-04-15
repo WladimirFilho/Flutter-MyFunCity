@@ -26,7 +26,9 @@ class Auth {
     required String password,
   }) async {
     await firebaseAuth.createUserWithEmailAndPassword(
-        email: email, password: password);
+      email: email,
+      password: password,
+    );
   }
 
   /// to sign out

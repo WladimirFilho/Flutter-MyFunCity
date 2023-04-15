@@ -18,7 +18,7 @@ class TextFieldWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     // container wrapping textfield
     return Container(
-      height: 50,
+      height: 60,
       padding: const EdgeInsets.symmetric(
         horizontal: 20,
       ),
@@ -31,6 +31,7 @@ class TextFieldWidget extends StatelessWidget {
         ),
       ),
       child: TextField(
+        cursorColor: Colors.black,
         obscureText: isHidden,
         controller: controler,
         style: const TextStyle(color: smallTextColor, fontSize: 15),

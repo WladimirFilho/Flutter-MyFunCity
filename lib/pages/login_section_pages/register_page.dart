@@ -44,7 +44,13 @@ class _RegisterPageState extends State<RegisterPage> {
   Future<void> register() async {
     try {
       await Auth().createAccount(
-          email: controlerEmail.text, password: controlerPassword.text);
+        email: controlerEmail.text,
+        password: controlerPassword.text,
+      );
+
+      Auth().currentUser?.updateDisplayName(
+          controlerFirtsName.text + ' ' + controlerLastName.text);
+
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) => IntroPageOne(),

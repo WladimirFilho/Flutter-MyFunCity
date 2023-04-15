@@ -21,7 +21,8 @@ class _PlacesMainPageState extends State<PlacesMainPage> {
       isLoading = true;
     });
     final db = FirebaseFirestore.instance;
-    final survey = await db.collection('general_survey').doc('hlBkeCpfqcyLTTjaPimn').get();
+    final survey =
+        await db.collection('general_survey').doc('hlBkeCpfqcyLTTjaPimn').get();
     Map<String, dynamic>? citiesFromSurvey = survey.data() ?? {};
     var allCities = citiesFromSurvey['survey_answers_4'];
     setState(() {
@@ -50,8 +51,8 @@ class _PlacesMainPageState extends State<PlacesMainPage> {
       body: Center(
         child: Column(
           children: [
-            CustomAppBar(
-              isLeading: false,
+            SizedBox(
+              height: 20,
             ),
             Expanded(
               child: SingleChildScrollView(
@@ -59,7 +60,9 @@ class _PlacesMainPageState extends State<PlacesMainPage> {
                   padding: EdgeInsets.symmetric(horizontal: 35.0),
                   child: Column(
                     children: [
-                      TitleSectionHeader(title: 'Find the place that that would make you happier'),
+                      TitleSectionHeader(
+                          title:
+                              'Find the place that that would make you happier'),
                       SizedBox(
                         height: 30,
                       ),
@@ -93,7 +96,8 @@ class _PlacesMainPageState extends State<PlacesMainPage> {
                                   iconSize: 40,
                                   hint: Text(
                                     'Choose your city',
-                                    style: TextStyle(fontSize: 12, color: Colors.white),
+                                    style: TextStyle(
+                                        fontSize: 12, color: Colors.white),
                                   ),
                                   style: TextStyle(
                                     color: Colors.white,
@@ -105,7 +109,8 @@ class _PlacesMainPageState extends State<PlacesMainPage> {
                                   onChanged: (_) {},
                                   items: cityList
                                       .map<DropdownMenuItem<String>>(
-                                        (String value) => DropdownMenuItem<String>(
+                                        (String value) =>
+                                            DropdownMenuItem<String>(
                                           value: value,
                                           child: Text(value),
                                         ),

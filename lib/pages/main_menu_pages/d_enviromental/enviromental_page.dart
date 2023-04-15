@@ -37,16 +37,16 @@ class _EnviromentalPageState extends State<EnviromentalPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(),
       body: Center(
         child: Column(
           children: [
-            CustomAppBar(),
             SizedBox(
-              height: 5,
+              height: 40,
             ),
             Container(
               child: Image.asset(
-                'images/menu_hero_image_kid_friendly.png',
+                'images/menu_hero_image_envi.png',
                 fit: BoxFit.fitHeight,
               ),
             ),

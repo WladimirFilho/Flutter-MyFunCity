@@ -35,12 +35,11 @@ class _QuestionsMorningTimePageState extends State<QuestionsMorningTimePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(),
       body: Center(
         child: SingleChildScrollView(
           child: Column(
             children: [
-              CustomAppBar(),
-
               SizedBox(
                 height: 5,
               ),

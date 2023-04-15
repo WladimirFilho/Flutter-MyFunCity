@@ -19,12 +19,15 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool isForgotBtnClicked = false;
   bool isLoginBtnClicked = false;
-  final TextEditingController controlerEmail = TextEditingController(text: 'wladimir.wf@gmail.com');
-  final TextEditingController controlerPassword = TextEditingController(text: 'Wiazowski1234');
+  final TextEditingController controlerEmail =
+      TextEditingController(text: 'email1@email.com');
+  final TextEditingController controlerPassword =
+      TextEditingController(text: 'email1@email.com');
 
   Future<void> userSignIn() async {
     try {
-      await Auth().signIn(email: controlerEmail.text, password: controlerPassword.text);
+      await Auth()
+          .signIn(email: controlerEmail.text, password: controlerPassword.text);
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => MainMenuPage(),
@@ -40,7 +43,6 @@ class _LoginPageState extends State<LoginPage> {
       );
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +82,9 @@ class _LoginPageState extends State<LoginPage> {
                                 setState(() {
                                   isForgotBtnClicked = true;
                                 });
-                                await Auth().firebaseAuth.sendPasswordResetEmail(
+                                await Auth()
+                                    .firebaseAuth
+                                    .sendPasswordResetEmail(
                                       email: controlerEmail.text,
                                     );
                                 setState(() {
@@ -88,7 +92,8 @@ class _LoginPageState extends State<LoginPage> {
                                 });
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
-                                    backgroundColor: Color.fromARGB(255, 119, 119, 119),
+                                    backgroundColor:
+                                        Color.fromARGB(255, 119, 119, 119),
                                     behavior: SnackBarBehavior.floating,
                                     content: Text('Reset email has sent.'),
                                   ),
