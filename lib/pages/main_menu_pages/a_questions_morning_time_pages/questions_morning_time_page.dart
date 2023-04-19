@@ -12,8 +12,7 @@ class QuestionsMorningTimePage extends StatefulWidget {
   final Map<String, dynamic> docFromFirebase;
 
   @override
-  State<QuestionsMorningTimePage> createState() =>
-      _QuestionsMorningTimePageState();
+  State<QuestionsMorningTimePage> createState() => _QuestionsMorningTimePageState();
 }
 
 class _QuestionsMorningTimePageState extends State<QuestionsMorningTimePage> {
@@ -25,10 +24,10 @@ class _QuestionsMorningTimePageState extends State<QuestionsMorningTimePage> {
     await database
         .collection('users')
         .doc(Auth().currentUser!.email)
-        .collection('theme_1')
-        .doc('questions')
-        .set(
-      {'answers': answers},
+        // .collection('theme_1')
+        // .doc('questions')
+        .update(
+      {'theme_1': answers},
     );
   }
 
@@ -77,10 +76,7 @@ class _QuestionsMorningTimePageState extends State<QuestionsMorningTimePage> {
                   key: ValueKey(1),
                   onPress: (int votingIndex) {
                     answers.addAll(
-                      {
-                        widget.docFromFirebase['questions'][questionThemeIndex]:
-                            votingIndex
-                      },
+                      {widget.docFromFirebase['questions'][questionThemeIndex]: votingIndex},
                     );
                   },
                 ),
@@ -89,10 +85,7 @@ class _QuestionsMorningTimePageState extends State<QuestionsMorningTimePage> {
                   key: ValueKey(2),
                   onPress: (int votingIndex) {
                     answers.addAll(
-                      {
-                        widget.docFromFirebase['questions'][questionThemeIndex]:
-                            votingIndex
-                      },
+                      {widget.docFromFirebase['questions'][questionThemeIndex]: votingIndex},
                     );
                   },
                 ),
@@ -101,10 +94,7 @@ class _QuestionsMorningTimePageState extends State<QuestionsMorningTimePage> {
                   key: ValueKey(3),
                   onPress: (int votingIndex) {
                     answers.addAll(
-                      {
-                        widget.docFromFirebase['questions'][questionThemeIndex]:
-                            votingIndex
-                      },
+                      {widget.docFromFirebase['questions'][questionThemeIndex]: votingIndex},
                     );
                   },
                 ),
@@ -117,8 +107,7 @@ class _QuestionsMorningTimePageState extends State<QuestionsMorningTimePage> {
                 onPressed: () {
                   setState(
                     () {
-                      if (questionThemeIndex <
-                          widget.docFromFirebase['questions'].length - 1) {
+                      if (questionThemeIndex < widget.docFromFirebase['questions'].length - 1) {
                         questionThemeIndex++;
                       } else {
                         setDataToFirestore();
@@ -131,16 +120,14 @@ class _QuestionsMorningTimePageState extends State<QuestionsMorningTimePage> {
                     },
                   );
                 },
-                child:
-                    Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
+                child: Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
                 style: ElevatedButton.styleFrom(
                   elevation: 0.0,
                   shadowColor: Colors.transparent,
                   shape: CircleBorder(),
                   padding: EdgeInsets.all(8),
                   backgroundColor: Color.fromARGB(255, 247, 157, 22),
-                  foregroundColor:
-                      Color.fromARGB(255, 255, 188, 73), // <-- Splash color
+                  foregroundColor: Color.fromARGB(255, 255, 188, 73), // <-- Splash color
                 ),
               ),
             ],

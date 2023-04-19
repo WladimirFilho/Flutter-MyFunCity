@@ -30,10 +30,8 @@ class _SurveyPageOneState extends State<SurveyPageOne> {
   FirebaseFirestore database = FirebaseFirestore.instance;
 
   Future<void> getSurveyDataFromFirestore() async {
-    final collection = await database
-        .collection('general_survey')
-        .doc('hlBkeCpfqcyLTTjaPimn')
-        .get();
+    final collection =
+        await database.collection('general_survey').doc('hlBkeCpfqcyLTTjaPimn').get();
     setState(() {
       isLoading = false;
       surveyData = collection.data() ?? {};
@@ -67,17 +65,17 @@ class _SurveyPageOneState extends State<SurveyPageOne> {
     await database
         .collection('users')
         .doc(Auth().currentUser!.email)
-        .collection('general_survey')
-        .doc('general_survey_answers')
-        .set(surveyAnswer);
+        // .collection('general_survey')
+        // .doc('general_survey_answers')
+        .set({'general_survey': surveyAnswer});
   }
 
   void setGeneralAnswerSurvetOnFirebase(int radioIndex) {
     print(surveyData['survey_question_${survey_index}']);
     surveyAnswer.addAll(
       {
-        surveyData['survey_question_${survey_index}']:
-            surveyData['survey_answers_${survey_index}'][radioIndex],
+        surveyData['survey_question_${survey_index}']: surveyData['survey_answers_${survey_index}']
+            [radioIndex],
       },
     );
   }
@@ -125,8 +123,7 @@ class _SurveyPageOneState extends State<SurveyPageOne> {
                               ),
                               const SizedBox(height: 50),
                               Text(
-                                surveyData['survey_question_${survey_index}'] ??
-                                    '',
+                                surveyData['survey_question_${survey_index}'] ?? '',
                                 style: TextStyle(
                                     fontSize: 25,
                                     fontWeight: FontWeight.w700,
@@ -147,8 +144,7 @@ class _SurveyPageOneState extends State<SurveyPageOne> {
                               Row(
                                 children: [
                                   Radio(
-                                    activeColor:
-                                        Color.fromARGB(255, 237, 147, 2),
+                                    activeColor: Color.fromARGB(255, 237, 147, 2),
                                     value: 1,
                                     groupValue: radioGroupValue,
                                     onChanged: (value) {
@@ -159,8 +155,7 @@ class _SurveyPageOneState extends State<SurveyPageOne> {
                                     },
                                   ),
                                   Text(
-                                    surveyData['survey_answers_${survey_index}']
-                                        [0],
+                                    surveyData['survey_answers_${survey_index}'][0],
                                     style: radioBtnTextStyle,
                                   ),
                                 ],
@@ -169,8 +164,7 @@ class _SurveyPageOneState extends State<SurveyPageOne> {
                               Row(
                                 children: [
                                   Radio(
-                                      activeColor:
-                                          Color.fromARGB(255, 237, 147, 2),
+                                      activeColor: Color.fromARGB(255, 237, 147, 2),
                                       value: 2,
                                       groupValue: radioGroupValue,
                                       onChanged: (value) {
@@ -180,8 +174,7 @@ class _SurveyPageOneState extends State<SurveyPageOne> {
                                         });
                                       }),
                                   Text(
-                                    surveyData['survey_answers_${survey_index}']
-                                        [1],
+                                    surveyData['survey_answers_${survey_index}'][1],
                                     style: radioBtnTextStyle,
                                   )
                                 ],
@@ -190,8 +183,7 @@ class _SurveyPageOneState extends State<SurveyPageOne> {
                               Row(
                                 children: [
                                   Radio(
-                                      activeColor:
-                                          Color.fromARGB(255, 237, 147, 2),
+                                      activeColor: Color.fromARGB(255, 237, 147, 2),
                                       value: 3,
                                       groupValue: radioGroupValue,
                                       onChanged: (value) {
@@ -201,8 +193,7 @@ class _SurveyPageOneState extends State<SurveyPageOne> {
                                         });
                                       }),
                                   Text(
-                                    surveyData['survey_answers_${survey_index}']
-                                        [2],
+                                    surveyData['survey_answers_${survey_index}'][2],
                                     style: radioBtnTextStyle,
                                   )
                                 ],
@@ -211,8 +202,7 @@ class _SurveyPageOneState extends State<SurveyPageOne> {
                               Row(
                                 children: [
                                   Radio(
-                                      activeColor:
-                                          Color.fromARGB(255, 237, 147, 2),
+                                      activeColor: Color.fromARGB(255, 237, 147, 2),
                                       value: 4,
                                       groupValue: radioGroupValue,
                                       onChanged: (value) {
@@ -222,8 +212,7 @@ class _SurveyPageOneState extends State<SurveyPageOne> {
                                         });
                                       }),
                                   Text(
-                                    surveyData['survey_answers_${survey_index}']
-                                        [3],
+                                    surveyData['survey_answers_${survey_index}'][3],
                                     style: radioBtnTextStyle,
                                   )
                                 ],
@@ -232,8 +221,7 @@ class _SurveyPageOneState extends State<SurveyPageOne> {
                               Row(
                                 children: [
                                   Radio(
-                                    activeColor:
-                                        Color.fromARGB(255, 237, 147, 2),
+                                    activeColor: Color.fromARGB(255, 237, 147, 2),
                                     value: 5,
                                     groupValue: radioGroupValue,
                                     onChanged: (value) {
@@ -246,8 +234,7 @@ class _SurveyPageOneState extends State<SurveyPageOne> {
                                     },
                                   ),
                                   Text(
-                                    surveyData['survey_answers_${survey_index}']
-                                        [4],
+                                    surveyData['survey_answers_${survey_index}'][4],
                                     style: radioBtnTextStyle,
                                   )
                                 ],

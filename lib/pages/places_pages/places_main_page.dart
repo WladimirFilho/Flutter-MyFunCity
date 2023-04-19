@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:myfuncitynew/pages/places_pages/bar_graph.dart';
-import 'package:myfuncitynew/widgets/custom_app_bar_widget.dart';
+import 'package:myfuncitynew/pages/places_pages/widgets/city_selected_content.dart';
 import 'package:myfuncitynew/widgets/title_section_header.dart';
 
 class PlacesMainPage extends StatefulWidget {
@@ -13,6 +12,7 @@ class PlacesMainPage extends StatefulWidget {
 
 class _PlacesMainPageState extends State<PlacesMainPage> {
   List<String> cityList = [];
+  String? citySelected;
   int? selectedItem;
   bool isLoading = false;
 
@@ -21,14 +21,33 @@ class _PlacesMainPageState extends State<PlacesMainPage> {
       isLoading = true;
     });
     final db = FirebaseFirestore.instance;
-    final survey =
-        await db.collection('general_survey').doc('hlBkeCpfqcyLTTjaPimn').get();
+    final survey = await db.collection('general_survey').doc('hlBkeCpfqcyLTTjaPimn').get();
     Map<String, dynamic>? citiesFromSurvey = survey.data() ?? {};
     var allCities = citiesFromSurvey['survey_answers_4'];
     setState(() {
       cityList = List<String>.from(allCities);
       isLoading = false;
     });
+  }
+
+  Future<void> barContentSummaryFeeling() async {
+    final db = FirebaseFirestore.instance;
+    final userAnswers = await db
+        .collection('users')
+        .where(
+          'general_survey',
+          isNotEqualTo: '',
+        )
+        .where(
+          'What is your area?',
+          isEqualTo: citySelected,
+        )
+        .get();
+    userAnswers.docs.forEach((element) {
+      print(element.data());
+    });
+    // print(userAnswers.docs);
+    print(citySelected);
   }
 
   List<double> feelingSummary = [
@@ -60,9 +79,7 @@ class _PlacesMainPageState extends State<PlacesMainPage> {
                   padding: EdgeInsets.symmetric(horizontal: 35.0),
                   child: Column(
                     children: [
-                      TitleSectionHeader(
-                          title:
-                              'Find the place that that would make you happier'),
+                      TitleSectionHeader(title: 'Find the place that that would make you happier'),
                       SizedBox(
                         height: 30,
                       ),
@@ -91,13 +108,13 @@ class _PlacesMainPageState extends State<PlacesMainPage> {
                               ),
                               child: DropdownButtonHideUnderline(
                                 child: DropdownButton(
+                                  value: citySelected,
                                   iconEnabledColor: Colors.white,
                                   borderRadius: BorderRadius.circular(8),
                                   iconSize: 40,
                                   hint: Text(
                                     'Choose your city',
-                                    style: TextStyle(
-                                        fontSize: 12, color: Colors.white),
+                                    style: TextStyle(fontSize: 12, color: Colors.white),
                                   ),
                                   style: TextStyle(
                                     color: Colors.white,
@@ -106,11 +123,15 @@ class _PlacesMainPageState extends State<PlacesMainPage> {
                                   isExpanded: true,
                                   elevation: 0,
                                   dropdownColor: Colors.deepOrange,
-                                  onChanged: (_) {},
+                                  onChanged: (city) {
+                                    setState(() {
+                                      citySelected = city;
+                                    });
+                                    barContentSummaryFeeling();
+                                  },
                                   items: cityList
                                       .map<DropdownMenuItem<String>>(
-                                        (String value) =>
-                                            DropdownMenuItem<String>(
+                                        (String value) => DropdownMenuItem<String>(
                                           value: value,
                                           child: Text(value),
                                         ),
@@ -119,39 +140,10 @@ class _PlacesMainPageState extends State<PlacesMainPage> {
                                 ),
                               ),
                             ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 40,
-                          ),
-
-                          // Picture hero
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Image.asset(
-                              'images/menu_hero_morning_time_friendly.png',
-                            ),
-                          ),
-                          SizedBox(
-                            height: 40,
-                          ),
-
-                          // Graphic
-                          SizedBox(
-                            height: 300,
-                            child: MyBarGraph(feelingsSummary: feelingSummary),
-                          ),
-
-                          SizedBox(
-                            height: 40,
-                          ),
-
-                          // Section Description
-                          Text(
-                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
-                        ],
-                      ),
+                      if (citySelected != null)
+                        CitySelectedContent(
+                          feelingSummary: feelingSummary,
+                        ),
                     ],
                   ),
                 ),
