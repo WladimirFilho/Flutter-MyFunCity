@@ -24,13 +24,8 @@ class _EnviromentalPageState extends State<EnviromentalPage> {
 
   Future<void> setDataToFirestore() async {
     FirebaseFirestore database = FirebaseFirestore.instance;
-    await database
-        .collection('users')
-        .doc(Auth().currentUser!.email)
-        .collection('theme_3')
-        .doc('questions')
-        .set(
-      {'answers': answer},
+    await database.collection('users').doc(Auth().currentUser!.email).update(
+      {'theme_3': answer},
     );
   }
 
@@ -56,8 +51,7 @@ class _EnviromentalPageState extends State<EnviromentalPage> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.0),
               child: Text(
-                widget.docFromFirebase['questions']
-                    [questionThemeEnviromentalIndex],
+                widget.docFromFirebase['questions'][questionThemeEnviromentalIndex],
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontFamily: "Roboto",
@@ -74,8 +68,7 @@ class _EnviromentalPageState extends State<EnviromentalPage> {
               onPress: (int votingIndex) {
                 answer.addAll(
                   {
-                    widget.docFromFirebase['questions']
-                        [questionThemeEnviromentalIndex]: votingIndex
+                    widget.docFromFirebase['questions'][questionThemeEnviromentalIndex]: votingIndex
                   },
                 );
               },
@@ -109,8 +102,7 @@ class _EnviromentalPageState extends State<EnviromentalPage> {
                 padding: EdgeInsets.all(8),
                 backgroundColor: Color.fromARGB(255, 247, 157, 22),
                 // <-- Button color
-                foregroundColor:
-                    Color.fromARGB(255, 255, 188, 73), // <-- Splash color
+                foregroundColor: Color.fromARGB(255, 255, 188, 73), // <-- Splash color
               ),
             ),
           ],

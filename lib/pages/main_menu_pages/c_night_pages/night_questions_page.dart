@@ -24,13 +24,8 @@ class _NightQuestionsPageState extends State<NightQuestionsPage> {
 
   Future<void> setDataToFirestore() async {
     FirebaseFirestore database = FirebaseFirestore.instance;
-    await database
-        .collection('users')
-        .doc(Auth().currentUser!.email)
-        .collection('theme_3')
-        .doc('questions')
-        .set(
-      {'answers': answers},
+    await database.collection('users').doc(Auth().currentUser!.email).update(
+      {'theme_2': answers},
     );
   }
 

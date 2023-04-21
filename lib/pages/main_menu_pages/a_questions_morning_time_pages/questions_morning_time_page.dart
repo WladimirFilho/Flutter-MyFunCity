@@ -21,12 +21,7 @@ class _QuestionsMorningTimePageState extends State<QuestionsMorningTimePage> {
 
   Future<void> setDataToFirestore() async {
     FirebaseFirestore database = FirebaseFirestore.instance;
-    await database
-        .collection('users')
-        .doc(Auth().currentUser!.email)
-        // .collection('theme_1')
-        // .doc('questions')
-        .update(
+    await database.collection('users').doc(Auth().currentUser!.email).update(
       {'theme_1': answers},
     );
   }

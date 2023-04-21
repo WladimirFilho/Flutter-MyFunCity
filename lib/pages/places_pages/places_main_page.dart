@@ -15,6 +15,8 @@ class _PlacesMainPageState extends State<PlacesMainPage> {
   String? citySelected;
   int? selectedItem;
   bool isLoading = false;
+  Map<String, dynamic> mainQuestionsData = {};
+  List<Map<String, dynamic>> usersAnswers = [];
 
   void firebaseGetStateData() async {
     setState(() {
@@ -35,19 +37,28 @@ class _PlacesMainPageState extends State<PlacesMainPage> {
     final userAnswers = await db
         .collection('users')
         .where(
-          'general_survey',
-          isNotEqualTo: '',
-        )
-        .where(
-          'What is your area?',
-          isEqualTo: citySelected,
-        )
+      'general_survey.What is your area?',
+      isEqualTo: citySelected,
+    )
         .get();
     userAnswers.docs.forEach((element) {
-      print(element.data());
+      usersAnswers.add(element.data());
     });
-    // print(userAnswers.docs);
-    print(citySelected);
+  }
+
+  Future<void> getQuestions() async {
+    final db = FirebaseFirestore.instance;
+    final mainQuestionsFromFirebase =
+    await db.collection('myFunCity_questions').doc('themes').get();
+    setState(() {
+      mainQuestionsData = mainQuestionsFromFirebase.data() ?? {};
+    });
+  }
+
+  void getAnswersSummary(String theme, String question) {
+    usersAnswers.where((element) {
+
+    });
   }
 
   List<double> feelingSummary = [
@@ -62,10 +73,13 @@ class _PlacesMainPageState extends State<PlacesMainPage> {
   void initState() {
     super.initState();
     firebaseGetStateData();
+    getQuestions();
   }
 
   @override
   Widget build(BuildContext context) {
+    final questions = List<String>.from(mainQuestionsData['theme_1']['questions']);
+
     return Scaffold(
       body: Center(
         child: Column(
@@ -97,53 +111,57 @@ class _PlacesMainPageState extends State<PlacesMainPage> {
                       ),
                       isLoading
                           ? CircularProgressIndicator(
-                              color: Colors.orangeAccent,
-                            )
+                        color: Colors.orangeAccent,
+                      )
                           : Container(
-                              height: 60,
-                              padding: EdgeInsets.symmetric(horizontal: 15),
-                              decoration: BoxDecoration(
-                                color: Colors.deepOrange,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: DropdownButtonHideUnderline(
-                                child: DropdownButton(
-                                  value: citySelected,
-                                  iconEnabledColor: Colors.white,
-                                  borderRadius: BorderRadius.circular(8),
-                                  iconSize: 40,
-                                  hint: Text(
-                                    'Choose your city',
-                                    style: TextStyle(fontSize: 12, color: Colors.white),
-                                  ),
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                  ),
-                                  isExpanded: true,
-                                  elevation: 0,
-                                  dropdownColor: Colors.deepOrange,
-                                  onChanged: (city) {
-                                    setState(() {
-                                      citySelected = city;
-                                    });
-                                    barContentSummaryFeeling();
-                                  },
-                                  items: cityList
-                                      .map<DropdownMenuItem<String>>(
-                                        (String value) => DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(value),
-                                        ),
-                                      )
-                                      .toList(),
-                                ),
-                              ),
-                            ),
-                      if (citySelected != null)
-                        CitySelectedContent(
-                          feelingSummary: feelingSummary,
+                        height: 60,
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        decoration: BoxDecoration(
+                          color: Colors.deepOrange,
+                          borderRadius: BorderRadius.circular(8),
                         ),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton(
+                            value: citySelected,
+                            iconEnabledColor: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            iconSize: 40,
+                            hint: Text(
+                              'Choose your city',
+                              style: TextStyle(fontSize: 12, color: Colors.white),
+                            ),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                            ),
+                            isExpanded: true,
+                            elevation: 0,
+                            dropdownColor: Colors.deepOrange,
+                            onChanged: (city) {
+                              setState(() {
+                                citySelected = city;
+                              });
+                              barContentSummaryFeeling();
+                            },
+                            items: cityList
+                                .map<DropdownMenuItem<String>>(
+                                  (String value) =>
+                                  DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  ),
+                            )
+                                .toList(),
+                          ),
+                        ),
+                      ),
+                      if (citySelected != null)
+                        ...questions.map((question) {
+                          return CitySelectedContent(
+                            questionTitle: question,
+                            feelingSummary: feelingSummary,
+                          );
+                        }).toList()
                     ],
                   ),
                 ),

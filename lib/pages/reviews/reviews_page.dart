@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:myfuncitynew/widgets/custom_app_bar_widget.dart';
 import 'package:myfuncitynew/widgets/post_widget.dart';
 import 'package:myfuncitynew/widgets/title_section_header.dart';
 
@@ -9,9 +8,6 @@ class ReviewPages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        isLeading: false,
-      ),
       body: Column(
         children: [
           Expanded(
@@ -45,19 +41,19 @@ class ReviewPages extends StatelessWidget {
                           height: 30,
                         ),
                         PostWidget(
-                            name: 'Jonny',
+                            name: 'Jonny Montana',
+                            postText:
+                                'The parks in this city are some of the most beautiful and peaceful places to visit. They offer a great escape from the hustle and bustle of daily life, allowing visitors to relax and enjoy nature. From large open spaces with sprawling fields and playgrounds, to smaller, more intimate gardens, the parks offer something for everyone. Many of the parks feature walking paths, benches, and picnic areas, providing the perfect setting for a family outing or a romantic picnic. Whether you are looking for a place to exercise, spend time with loved ones, or simply take a break from the stresses of the day, the parks in your city are the perfect place to do so.'),
+                        PostWidget(
+                            name: 'Mark Mark',
+                            postText:
+                                'Sydney is renowned for its vibrant nightlife, with a plethora of options to suit all tastes and budgets. The city is home to countless bars, clubs, and pubs that stay open late, allowing party-goers to dance and socialize well into the early hours of the morning. Many of these venues offer live music, DJs, and a wide variety of drinks and food options. In addition to traditional nightclubs, Sydney also boasts a thriving alternative scene, with an abundance of underground and indie clubs, as well as festivals and events that cater to niche interests. With so many options available, Sydney truly offers something for everyone, making it a destination for those seeking a fun and lively nightlife experience.'),
+                        PostWidget(
+                            name: 'Daniel San',
                             postText:
                                 'I Love that now I can hear music on my morning walking when I go to work. That was a very good Idea. Everyone seems very happy now.'),
                         PostWidget(
-                            name: 'Jonny',
-                            postText:
-                                'I Love that now I can hear music on my morning walking when I go to work. That was a very good Idea. Everyone seems very happy now.'),
-                        PostWidget(
-                            name: 'Jonny',
-                            postText:
-                                'I Love that now I can hear music on my morning walking when I go to work. That was a very good Idea. Everyone seems very happy now.'),
-                        PostWidget(
-                            name: 'Jonny',
+                            name: 'Jonny Laurence',
                             postText:
                                 'I Love that now I can hear music on my morning walking when I go to work. That was a very good Idea. Everyone seems very happy now.'),
                       ],

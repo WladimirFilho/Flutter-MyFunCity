@@ -76,6 +76,7 @@ class HomeWidget extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 25.0),
                   child: ListView(
+                    physics: NeverScrollableScrollPhysics(),
                     padding: EdgeInsets.all(0),
                     children: [
                       GestureDetector(
