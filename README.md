@@ -17,8 +17,7 @@ Flutter version has to be 3.7.5
 
 ### How to run this project
 
-The recomendation is to run this project either on Android or Ios Simulator, so before running the project,
-start your prefered emulator.
+The recommendation is to run this project either on Android or Ios Simulator, so before running the project, start your preferred emulator.
 
 To run the project, go to the root folder of the application using your terminal and run the following commands:
 
