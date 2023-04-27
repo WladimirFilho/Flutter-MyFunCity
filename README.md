@@ -10,18 +10,17 @@ A few resources to get you started if this is your first Flutter project:
 
 ### Flutter setup
 
+Make sure you have the flutter installed on your machine.
+
 Flutter version has to be 3.7.5
 -[Link for the flutter documentation](https://docs.flutter.dev/development/tools/sdk/releases)
-Dart version has to be 2.19.2
 
 ### How to run this project
 
-* Go to the root folder of the application using your terminal
-* Run `flutter pub get`
-* Execute `flutter run`
+The recomendation is to run this project either on Android or Ios Simulator, so before running the project,
+start your prefered emulator.
 
+To run the project, go to the root folder of the application using your terminal and run the following commands:
 
-
-
-
-
+* `flutter pub get`
+* `flutter run`
