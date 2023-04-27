@@ -17,13 +17,34 @@ class _PlacesMainPageState extends State<PlacesMainPage> {
   bool isLoading = false;
   Map<String, dynamic> mainQuestionsData = {};
   List<Map<String, dynamic>> usersAnswers = [];
+  String currentTheme = 'theme_1';
+
+  final Map<String, dynamic> themeInfo = {
+    'theme_1': {
+      'image': 'images/menu_cover_morning_time.png',
+      'label': 'Morning Time',
+    },
+    'theme_2': {
+      'image': 'images/menu_hero_image_night_life.png',
+      'label': 'Night Life',
+    },
+    'theme_3': {
+      'image': 'images/menu_hero_image_envi.png',
+      'label': 'Environmental',
+    },
+    'theme_4': {
+      'image': 'images/menu_hero_image_kid_friendly.png',
+      'label': 'Kids Friendly',
+    },
+  };
 
   void firebaseGetStateData() async {
     setState(() {
       isLoading = true;
     });
     final db = FirebaseFirestore.instance;
-    final survey = await db.collection('general_survey').doc('hlBkeCpfqcyLTTjaPimn').get();
+    final survey =
+        await db.collection('general_survey').doc('hlBkeCpfqcyLTTjaPimn').get();
     Map<String, dynamic>? citiesFromSurvey = survey.data() ?? {};
     var allCities = citiesFromSurvey['survey_answers_4'];
     setState(() {
@@ -33,41 +54,70 @@ class _PlacesMainPageState extends State<PlacesMainPage> {
   }
 
   Future<void> barContentSummaryFeeling() async {
+    setState(() {
+      isLoading = true;
+    });
     final db = FirebaseFirestore.instance;
     final userAnswers = await db
         .collection('users')
         .where(
-      'general_survey.What is your area?',
-      isEqualTo: citySelected,
-    )
+          'general_survey.What is your area?',
+          isEqualTo: citySelected,
+        )
         .get();
+
+    List<Map<String, dynamic>> internalAnswers = [];
+
     userAnswers.docs.forEach((element) {
-      usersAnswers.add(element.data());
+      internalAnswers.add(element.data());
+    });
+    setState(() {
+      usersAnswers = internalAnswers;
+      isLoading = false;
     });
   }
 
   Future<void> getQuestions() async {
     final db = FirebaseFirestore.instance;
     final mainQuestionsFromFirebase =
-    await db.collection('myFunCity_questions').doc('themes').get();
+        await db.collection('myFunCity_questions').doc('themes').get();
     setState(() {
       mainQuestionsData = mainQuestionsFromFirebase.data() ?? {};
     });
   }
 
-  void getAnswersSummary(String theme, String question) {
-    usersAnswers.where((element) {
+  List<double> getAnswersSummary(String theme, String question) {
+    Map<int, int> measure = {
+      0: 0,
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+    };
 
-    });
+    int totalAnswers = 0;
+
+    for (var userAnswer in usersAnswers) {
+      if (userAnswer.containsKey(theme)) {
+        if (userAnswer[theme].containsKey(question)) {
+          totalAnswers++;
+          measure[userAnswer[theme][question]] =
+              measure[userAnswer[theme][question]]! + 1;
+        }
+      }
+    }
+
+    final List<double> measureReturn = measure.values.map((e) {
+      final x = (e / totalAnswers) * 100;
+      if (x.isNaN) {
+        return 0.0;
+      } else {
+        return x;
+      }
+    }).toList();
+
+    return measureReturn;
   }
-
-  List<double> feelingSummary = [
-    4,
-    7,
-    50,
-    70,
-    100,
-  ];
 
   @override
   void initState() {
@@ -78,7 +128,12 @@ class _PlacesMainPageState extends State<PlacesMainPage> {
 
   @override
   Widget build(BuildContext context) {
-    final questions = List<String>.from(mainQuestionsData['theme_1']['questions']);
+    List<String> questions = [];
+
+    if (mainQuestionsData.containsKey(currentTheme)) {
+      questions =
+          List<String>.from(mainQuestionsData[currentTheme]['questions']);
+    }
 
     return Scaffold(
       body: Center(
@@ -93,7 +148,9 @@ class _PlacesMainPageState extends State<PlacesMainPage> {
                   padding: EdgeInsets.symmetric(horizontal: 35.0),
                   child: Column(
                     children: [
-                      TitleSectionHeader(title: 'Find the place that that would make you happier'),
+                      TitleSectionHeader(
+                          title:
+                              'Find the place that that would make you happier'),
                       SizedBox(
                         height: 30,
                       ),
@@ -111,57 +168,105 @@ class _PlacesMainPageState extends State<PlacesMainPage> {
                       ),
                       isLoading
                           ? CircularProgressIndicator(
-                        color: Colors.orangeAccent,
-                      )
-                          : Container(
-                        height: 60,
-                        padding: EdgeInsets.symmetric(horizontal: 15),
-                        decoration: BoxDecoration(
-                          color: Colors.deepOrange,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton(
-                            value: citySelected,
-                            iconEnabledColor: Colors.white,
-                            borderRadius: BorderRadius.circular(8),
-                            iconSize: 40,
-                            hint: Text(
-                              'Choose your city',
-                              style: TextStyle(fontSize: 12, color: Colors.white),
-                            ),
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                            ),
-                            isExpanded: true,
-                            elevation: 0,
-                            dropdownColor: Colors.deepOrange,
-                            onChanged: (city) {
-                              setState(() {
-                                citySelected = city;
-                              });
-                              barContentSummaryFeeling();
-                            },
-                            items: cityList
-                                .map<DropdownMenuItem<String>>(
-                                  (String value) =>
-                                  DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(value),
-                                  ),
+                              color: Colors.orangeAccent,
                             )
-                                .toList(),
-                          ),
-                        ),
-                      ),
-                      if (citySelected != null)
-                        ...questions.map((question) {
-                          return CitySelectedContent(
-                            questionTitle: question,
-                            feelingSummary: feelingSummary,
-                          );
-                        }).toList()
+                          : Column(
+                              children: [
+                                Container(
+                                  height: 60,
+                                  padding: EdgeInsets.symmetric(horizontal: 15),
+                                  decoration: BoxDecoration(
+                                    color: Colors.deepOrange,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: DropdownButtonHideUnderline(
+                                    child: DropdownButton(
+                                      value: citySelected,
+                                      iconEnabledColor: Colors.white,
+                                      borderRadius: BorderRadius.circular(8),
+                                      iconSize: 40,
+                                      hint: Text(
+                                        'Choose your city',
+                                        style: TextStyle(
+                                            fontSize: 12, color: Colors.white),
+                                      ),
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                      ),
+                                      isExpanded: true,
+                                      elevation: 0,
+                                      dropdownColor: Colors.deepOrange,
+                                      onChanged: (city) {
+                                        setState(() {
+                                          citySelected = city;
+                                        });
+                                        barContentSummaryFeeling();
+                                      },
+                                      items: cityList
+                                          .map<DropdownMenuItem<String>>(
+                                            (String value) =>
+                                                DropdownMenuItem<String>(
+                                              value: value,
+                                              child: Text(value),
+                                            ),
+                                          )
+                                          .toList(),
+                                    ),
+                                  ),
+                                ),
+                                if (citySelected != null) ...[
+                                  SizedBox(
+                                    height: 30,
+                                  ),
+                                  SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Row(
+                                      children: themeInfo.entries.map((e) {
+                                        return Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 5.0),
+                                          child: InkWell(
+                                            onTap: () {
+                                              setState(() {
+                                                currentTheme = e.key;
+                                              });
+                                            },
+                                            child: Chip(
+                                              side: BorderSide(
+                                                color: Colors.orangeAccent,
+                                                width: 3,
+                                              ),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                              ),
+                                              label: Text(e.value['label']!),
+                                            ),
+                                          ),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 40,
+                                  ),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: Image.asset(
+                                      themeInfo[currentTheme]['image'],
+                                    ),
+                                  ),
+                                  ...questions.map((question) {
+                                    return CitySelectedContent(
+                                      questionTitle: question,
+                                      feelingSummary: getAnswersSummary(
+                                          currentTheme, question),
+                                    );
+                                  }).toList()
+                                ],
+                              ],
+                            ),
                     ],
                   ),
                 ),

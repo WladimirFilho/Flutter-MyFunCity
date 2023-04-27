@@ -7,12 +7,10 @@ class CitySelectedContent extends StatelessWidget {
     Key? key,
     this.feelingSummary = const [0, 0, 0, 0, 0],
     this.questionTitle = 'Question Title',
-    this.questionContent = 'Content Content Content Content Content '
   }) : super(key: key);
 
   final List<double> feelingSummary;
   final String questionTitle;
-  final String questionContent;
 
   @override
   Widget build(BuildContext context) {
@@ -22,19 +20,12 @@ class CitySelectedContent extends StatelessWidget {
         SizedBox(
           height: 40,
         ),
-        // Picture hero
-        ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: Image.asset(
-            'images/menu_hero_morning_time_friendly.png',
-          ),
-        ),
-        SizedBox(
-          height: 40,
-        ),
         Text(
           questionTitle,
+          textAlign: TextAlign.center,
           style: TextStyle(
+            height: 1.2,
+            letterSpacing: -1.0,
             fontSize: 24,
             fontWeight: FontWeight.bold,
           ),
@@ -53,9 +44,6 @@ class CitySelectedContent extends StatelessWidget {
         SizedBox(
           height: 40,
         ),
-
-        // Section Description
-        Text(questionContent),
       ],
     );
   }
